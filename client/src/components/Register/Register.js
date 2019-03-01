@@ -1,47 +1,35 @@
 import React from 'react';
 import axios from 'axios';
 
-class Login extends React.Component {
+class Register extends React.Component {
   state = {
     username: '',
     password: '',
-    errMsg: '',
   };
 
-  navToRegister = () => {
-    this.props.history.push('/register')
-  }
-
+  
   handleInputChange = event => {
     const { name, value } = event.target;
-    this.setState({ 
-        [name]: value,
-        errMsg: ''
-    });
+    this.setState({ [name]: value });
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
-    const endpoint = 'http://localhost:3300/api/login';
+    const endpoint = 'http://localhost:3300/api/register';
 
     axios
       .post(endpoint, this.state)
       .then(res => {
-        localStorage.setItem('jwt', res.data.token);
-
-        this.props.history.push('/jokes');
+        this.props.history.push('/login');
       })
-      .catch(error => 
-        this.setState({
-            errMsg: error.response.data.message
-        }));
+      .catch(error => console.log(error));
   };
 
   render() {
     return (
       <>
-        <h2>Login</h2>
+        <h2>Register</h2>
         <form onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="username" />Username: 
@@ -54,7 +42,7 @@ class Login extends React.Component {
             />
           </div>
           <div>
-            <label htmlFor="password" />Password: 
+            <label htmlFor="password" />Password:
             <input
               name="password"
               id="password"
@@ -65,13 +53,7 @@ class Login extends React.Component {
           </div>
 
           <div>
-            <button type="submit">Login</button>
-            <button onClick={this.navToRegister}>Register</button>
-          </div>
-          <div>
-            {this.state.errMsg &&
-                this.state.errMsg
-            }
+            <button type="submit">Register</button>
           </div>
         </form>
       </>
@@ -80,4 +62,4 @@ class Login extends React.Component {
 
 }
 
-export default Login;
+export default Register;

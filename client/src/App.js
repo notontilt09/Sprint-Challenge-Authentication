@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route, NavLink, withRouter } from 'react-router-dom'
 import Login from './components/Login/Login.js';
+import Register from './components/Register/Register.js';
 import Jokes from './components/Jokes/Jokes.js';
 
 class App extends Component {
-  logout() {
+  logout = () => {
     localStorage.removeItem('jwt');
     this.props.history.push('/login');
   }
+
+
 
   render() {
     return (
@@ -20,11 +23,13 @@ class App extends Component {
             <NavLink to="/jokes">Jokes</NavLink>
             &nbsp;|&nbsp;
             <button onClick={this.logout}>Logout</button>
+          
           </nav>
         </header>
         <main>
           <Route path="/login" component={Login} />
           <Route path="/jokes" component={Jokes} />
+          <Route path="/register" component={Register} />
         </main>
       </>
     );

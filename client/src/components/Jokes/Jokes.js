@@ -24,16 +24,24 @@ class Jokes extends React.Component {
     }
 
     render() {
-        return (
-            <>
-                <h2>So you like dad jokes...</h2>
-                <ul>
-                    {this.state.jokes.map(joke => (
-                        <li key={joke.id}>{joke.joke}</li>
-                    ))}
-                </ul>
-            </>
-        )
+        const token = localStorage.getItem('jwt')
+        if (token) {
+            return (
+                <>
+                    <h2>So you like dad jokes...</h2>
+                    <ul>
+                        {this.state.jokes.map(joke => (
+                            <li key={joke.id}>{joke.joke}</li>
+                        ))}
+                    </ul>
+                </>
+            )
+        } else {
+            return (
+                <>Please login to see the list of jokes</>
+            )
+        }
+
     }
 }
 
