@@ -32,7 +32,6 @@ function login(req, res) {
   Users.findBy({ username })
     .first()
     .then(user => {
-      console.log(user);
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = tokenService.generateToken(user);
         res.status(200).json({
