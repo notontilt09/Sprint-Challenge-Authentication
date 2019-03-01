@@ -5,11 +5,28 @@ import Login from './components/Login/Login.js';
 import Jokes from './components/Jokes/Jokes.js';
 
 class App extends Component {
+  logout() {
+    localStorage.removeItem('jwt');
+    this.props.history.push('/login');
+  }
+
   render() {
     return (
-      <div className="App">
-    
-      </div>
+      <>
+        <header>
+          <nav>
+            <NavLink to="/login">Login</NavLink>
+            &nbsp;|&nbsp;
+            <NavLink to="/jokes">Jokes</NavLink>
+            &nbsp;|&nbsp;
+            <button onClick={this.logout}>Logout</button>
+          </nav>
+        </header>
+        <main>
+          <Route path="/login" component={Login} />
+          <Route path="/jokes" component={Jokes} />
+        </main>
+      </>
     );
   }
 }
